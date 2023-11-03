@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public int speed = 5;
+
+    public int playerMaxHP;
+    public int playerCurHP;
     void Update()
     {
         if (Input.GetKey(KeyCode.W)) 
