@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,12 +13,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Translate(-speed * Time.deltaTime, 0, 0);
         }
 
-        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(speed * Time.deltaTime, 0, 0);
         }
@@ -27,11 +30,28 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /*bool Grounded()
+    {
+        bool grounded = Physics.Raycast(this.transform.position,Vector2.down,1.7f);
+        Debug.Log(grounded);
+        return grounded;
+    }*/
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == ("Platform"))
         {
             onGround = true;
+        }
+
+        if (collision.gameObject.tag == ("Edge"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (collision.gameObject.tag == ("Door"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
