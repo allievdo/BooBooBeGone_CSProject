@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : ITakeDamage
 {
     public Rigidbody2D rb;
     public int speed = 5;
 
-    public int playerMaxHP;
-    public int playerCurHP;
+    private void Start()
+    {
+        
+    }
     void Update()
     {
         if (Input.GetKey(KeyCode.W)) 

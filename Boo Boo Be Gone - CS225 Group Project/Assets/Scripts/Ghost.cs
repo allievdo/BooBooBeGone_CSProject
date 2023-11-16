@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ghost : MonoBehaviour
-{
-    public int maxHP = 100;
-    public int curHP = 100;
-
+public class Ghost : ITakeDamage
+{ 
     public int attackPower;
     public float ghostSpeed = 2;
 
@@ -16,21 +13,18 @@ public class Ghost : MonoBehaviour
 
     public PlayerMovement playerMovement;
 
+    //TEST CONSTRUCTOR STUFF
+
     //SpriteRenderer spriteRenderer;
 
     public void Update()
     {
         GhostMovement();
-
-        if (curHP == 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision) //If the character hits a certain wall, change diredction
     {
-        if(collision.gameObject.tag == ("Wall"))
+        if(collision.gameObject.tag == ("Wall")) //If Statements
         {
             hasCollided = true;
             Debug.Log("Collided");
@@ -41,11 +35,9 @@ public class Ghost : MonoBehaviour
             hasCollided = false;
         }
 
-        if (collision.gameObject.tag == ("Player"))
+        if (collision.gameObject.tag == ("Player")) //Damage player and ghost if hit
         {
-            curHP -= 10;
-            playerMovement.playerCurHP -= 5;
-            Debug.Log("Hit");
+            Damage(collision.gameObject);
         }
 
         //else
@@ -62,4 +54,27 @@ public class Ghost : MonoBehaviour
             rb.velocity = new Vector2(-ghostSpeed, 0f);
         }
     }
+    public override void Die() 
+    {
+        Destroy(gameObject);
+    }
+
+    public virtual void Damage(GameObject p)
+    {
+        curHP -= 10;
+        p.GetComponent<PlayerMovement>().curHP -= 7;
+        Debug.Log("Hit");
+    }
+
+    //private void Die()
+    //{
+    //    Destroy(gameObject);
+    //}
+
+    //constructor
+    //public Ghost(int constructorMaxHP, int constructorCurHP)
+    //{
+    //    maxHP = constructorMaxHP;
+    //    curHP = constructorCurHP;
+    //}
 }
