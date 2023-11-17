@@ -7,6 +7,10 @@ TagManager:
   - Platform
   - Edge
   - Door
+  - Ghost
+  - Wall
+  - Wall2
+  - FinalDoor
   layers:
   - Default
   - TransparentFX

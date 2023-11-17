@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : ITakeDamage
 {
     public Rigidbody2D rb;
     public int speed = 5;
+    public int jump = 7;
     public bool onGround;
+    public Text healthText;
+    public GameObject winText;
+
     void Update()
     {
+        healthText.text = "Health: " + currentHP;
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
@@ -25,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && onGround)
         {
-            rb.velocity = rb.velocity + Vector2.up * 7;
+            rb.velocity = rb.velocity + Vector2.up * jump;
             onGround = false;
         }
     }
@@ -52,6 +59,11 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == ("Door"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+        if (collision.gameObject.tag == ("FinalDoor"))
+        {
+            winText.SetActive(true);
         }
     }
 }
