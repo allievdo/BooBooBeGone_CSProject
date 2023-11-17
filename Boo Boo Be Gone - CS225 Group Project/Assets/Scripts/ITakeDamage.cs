@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ITakeDamage : MonoBehaviour
 {
-    public ITakeDamage(int maxHPCon = 100, int curHPCon = 100)
+    public ITakeDamage(int maxHPCon = 100, int curHPCon = 100) //constructor
     {
         maxHP = maxHPCon;
         curHP = curHPCon;

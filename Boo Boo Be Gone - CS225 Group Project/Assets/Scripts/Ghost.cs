@@ -6,6 +6,7 @@ public class Ghost : ITakeDamage
 { 
     public int attackPower;
     public float ghostSpeed = 2;
+    public bool isDead = false;
 
     public bool hasCollided = false;
 
@@ -56,6 +57,7 @@ public class Ghost : ITakeDamage
     }
     public override void Die() 
     {
+        isDead = true;
         Destroy(gameObject);
     }
 
