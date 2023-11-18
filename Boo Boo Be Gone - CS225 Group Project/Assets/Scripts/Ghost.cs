@@ -2,31 +2,81 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ghost : MonoBehaviour
-{
-    public int maxHP = 100;
-    public int curHP = 100;
-
+public class Ghost : ITakeDamage
+{ 
     public int attackPower;
+    public float ghostSpeed = 2;
+    public bool isDead = false;
+
+    public bool hasCollided = false;
+
+    public Rigidbody2D rb;
 
     public PlayerMovement playerMovement;
 
+    //TEST CONSTRUCTOR STUFF
+
     //SpriteRenderer spriteRenderer;
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == ("Player"))
-        {
-            curHP -= 10;
-            playerMovement.playerCurHP -= 5;
-            Debug.Log("Hit");
-        }
-    }
     public void Update()
     {
-        if (curHP == 0)
+        GhostMovement();
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) //If the character hits a certain wall, change diredction
+    {
+        if(collision.gameObject.tag == ("Wall")) //If Statements
         {
-            Destroy(gameObject);
+            hasCollided = true;
+            Debug.Log("Collided");
+        }
+
+        if (collision.gameObject.tag == ("Wall2"))
+        {
+            hasCollided = false;
+        }
+
+        if (collision.gameObject.tag == ("Player")) //Damage player and ghost if hit
+        {
+            Damage(collision.gameObject);
+        }
+
+        //else
+        //{
+        //    hasCollided = false;
+        //}
+    }
+    private void GhostMovement()
+    {
+        rb.velocity = new Vector2(ghostSpeed, 0f);
+
+        if (hasCollided == true)
+        {
+            rb.velocity = new Vector2(-ghostSpeed, 0f);
         }
     }
+    public override void Die() 
+    {
+        isDead = true;
+        Destroy(gameObject);
+    }
+
+    public virtual void Damage(GameObject p)
+    {
+        curHP -= 10;
+        p.GetComponent<PlayerMovement>().curHP -= 7;
+        Debug.Log("Hit");
+    }
+
+    //private void Die()
+    //{
+    //    Destroy(gameObject);
+    //}
+
+    //constructor
+    //public Ghost(int constructorMaxHP, int constructorCurHP)
+    //{
+    //    maxHP = constructorMaxHP;
+    //    curHP = constructorCurHP;
+    //}
 }

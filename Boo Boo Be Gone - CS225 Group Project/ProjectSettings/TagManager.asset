@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ghost
+  - Wall
+  - Wall2
+  - Bullet
+  - Floor
   layers:
   - Default
   - TransparentFX
