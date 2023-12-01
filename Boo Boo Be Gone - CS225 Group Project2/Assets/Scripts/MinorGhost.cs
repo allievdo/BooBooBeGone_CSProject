@@ -5,13 +5,6 @@ using UnityEngine;
 
 public class MinorGhost : Ghost
 {
-    //INHERITANCE
-
-    //public MinorGhost(int consMaxHP, int consCurHP) : base(consMaxHP, consCurHP)
-    //{
-    //    //IDK
-    //}
-
     void Start()
     {
         curHP = 50;
@@ -21,6 +14,5 @@ public class MinorGhost : Ghost
     {
         curHP -= 20;
         p.GetComponent<PlayerMovement>().curHP -= 5;
-        //Debug.Log("Hit minus 20");
     }
 }

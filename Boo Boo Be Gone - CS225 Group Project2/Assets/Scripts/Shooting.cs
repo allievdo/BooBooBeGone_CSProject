@@ -8,7 +8,6 @@ public class Shooting : MonoBehaviour
     public Transform bulletSpawnPoint;
 
     Vector3 mouseDirection;
-    float lookAngle;
 
     public GameObject bulletPrefab;
     public float bulletSpeed = 10;
@@ -23,16 +22,18 @@ public class Shooting : MonoBehaviour
 
         Vector3 rotation = mouseDirection - transform.position;
 
-        float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg; //Atan2 returns the principal value of the arc tangent of y/x, expressed in radians. Rad2Deg returns radians to degrees.
 
-        transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+        transform.rotation = Quaternion.Euler(0, 0, rotationZ); //a rotation around "rotationz" around the z axis, not the x or y
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) //if player left clicks...
         {
-            var bulletClone = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+            var bulletClone = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity); //will spawn the bullet wherever the gun is pointing
 
-            bulletClone.GetComponent<Rigidbody2D>().velocity = bulletSpawnPoint.right * bulletSpeed;
+            bulletClone.GetComponent<Rigidbody2D>().velocity = bulletSpawnPoint.right * bulletSpeed; //sends bullet flying
         }
+
+        // I know this code isn't very clean, but I really wanted to keep my thought process haha
 
         //mouseDirection = Camera.main.WorldToScreenPoint(Input.mousePosition);
         //lookAngle = Mathf.Atan2(mouseDirection.y, mouseDirection.x) * Mathf.Rad2Deg;

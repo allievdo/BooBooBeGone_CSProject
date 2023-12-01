@@ -16,6 +16,16 @@ public class PlayerMovement : ITakeDamage
     public Text healthText;
     public GameObject winText;
 
+    public static bool isDead;
+    public static bool isGameComplete;
+
+    public float endTimer;
+
+    private void Awake()
+    {
+        isDead = false;
+        isGameComplete = false;
+    }
     void Update()
     {
         healthText.text = "Health: " + currentHP;
@@ -37,13 +47,6 @@ public class PlayerMovement : ITakeDamage
         }
     }
 
-    /*bool Grounded()
-    {
-        bool grounded = Physics.Raycast(this.transform.position,Vector2.down,1.7f);
-        Debug.Log(grounded);
-        return grounded;
-    }*/
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == ("Platform"))
@@ -63,7 +66,14 @@ public class PlayerMovement : ITakeDamage
 
         if (collision.gameObject.tag == ("FinalDoor"))
         {
+            isGameComplete = true;
             winText.SetActive(true);
         }
+    }
+    public override void Die()
+    {
+        healthText.text = "Health: 0";
+        isDead = true;
+        Destroy(gameObject);
     }
 }

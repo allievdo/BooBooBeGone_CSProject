@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class Ghost : ITakeDamage
 {
-    public int attackPower;
     public float ghostSpeed = 2;
     public bool isDead = false;
 
@@ -15,37 +11,30 @@ public class Ghost : ITakeDamage
 
     public PlayerMovement playerMovement;
 
-    //TEST CONSTRUCTOR STUFF
-
-    //SpriteRenderer spriteRenderer;
 
     public void Update()
     {
         GhostMovement();
     }
 
-    void OnCollisionEnter2D(Collision2D collision) //If the character hits a certain wall, change diredction
+    void OnCollisionEnter2D(Collision2D collision) //If the character hits a certain wall, change direction
     {
         if (collision.gameObject.tag == ("Wall")) //If Statements
         {
             hasCollided = true;
-            //Debug.Log("Collided");
+            transform.Rotate(0, 180, 0);
         }
 
         if (collision.gameObject.tag == ("Wall2"))
         {
             hasCollided = false;
+            transform.Rotate(0, 180, 0);
         }
 
         if (collision.gameObject.tag == ("Player")) //Damage player and ghost if hit
         {
             Damage(collision.gameObject);
         }
-
-        //else
-        //{
-        //    hasCollided = false;
-        //}
     }
     private void GhostMovement()
     {
@@ -66,18 +55,5 @@ public class Ghost : ITakeDamage
     {
         curHP -= 10;
         p.GetComponent<PlayerMovement>().curHP -= 7;
-        //Debug.Log("Hit");
     }
-
-    //private void Die()
-    //{
-    //    Destroy(gameObject);
-    //}
-
-    //constructor
-    //public Ghost(int constructorMaxHP, int constructorCurHP)
-    //{
-    //    maxHP = constructorMaxHP;
-    //    curHP = constructorCurHP;
-    //}
 }

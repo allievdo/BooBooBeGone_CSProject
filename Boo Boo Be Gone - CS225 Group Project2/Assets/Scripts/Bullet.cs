@@ -22,8 +22,6 @@ public class Bullet : MonoBehaviour
     }
     public virtual void Damage(GameObject g)
     {
-        //ghost.curHP -= 5;
         g.GetComponent<Ghost>().curHP -= 5;
-        //Debug.Log("Hit ghost");
     }
 }

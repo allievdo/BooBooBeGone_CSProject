@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - Wall2
   - FinalDoor
+  - Music
   layers:
   - Default
   - TransparentFX

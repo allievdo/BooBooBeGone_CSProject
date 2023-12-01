@@ -19,6 +19,6 @@ public class ITakeDamage : MonoBehaviour
 
     public virtual void Die()
     {
-        //Do nothing
+        //Do nothing for now
     }
 }
